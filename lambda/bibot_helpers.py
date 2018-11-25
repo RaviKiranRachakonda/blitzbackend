@@ -32,52 +32,6 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
 
-def get_bibot_config():
-    global ATHENA_DB
-    global ATHENA_OUTPUT_LOCATION
-
-    try:
-        ATHENA_DB = os.environ['ATHENA_DB']
-        ATHENA_OUTPUT_LOCATION = os.environ['ATHENA_OUTPUT_LOCATION']
-    except KeyError:
-        return 'I have a configuration error - please set up the Athena database information.'
-
-    logger.debug('<<BIBot>> athena_db = ' + ATHENA_DB)
-    logger.debug('<<BIBot>> athena_output_location = ' + ATHENA_OUTPUT_LOCATION)
-
-
-def execute_athena_query(query_string):
-    start = time.perf_counter()
-
-    athena = boto3.client('athena')
-
-    response = athena.start_query_execution(
-        QueryString=query_string,
-        QueryExecutionContext={'Database': ATHENA_DB},
-        ResultConfiguration={
-            'OutputLocation': ATHENA_OUTPUT_LOCATION,
-        }
-    )
-
-    query_execution_id = response['QueryExecutionId']
-
-    status = 'RUNNING'
-    while (status == 'RUNNING'):
-        response = athena.get_query_execution(QueryExecutionId=query_execution_id)
-        status = response['QueryExecution']['Status']['State']
-        if (status == 'RUNNING'):
-            #logger.debug('<<BIBot>> query status = ' + status + ': sleep 200ms') 
-            time.sleep(0.200)
-
-    duration = time.perf_counter() - start
-    duration_string = 'query duration = %.0f' % (duration * 1000) + ' ms'
-    logger.debug('<<BIBot>> query status = ' + status + ', ' + duration_string) 
-
-    response = athena.get_query_results(QueryExecutionId=query_execution_id)
-    logger.debug('<<BIBot>> query response = ' + json.dumps(response)) 
-
-    return response
-
 
 def get_slot_values(slot_values, intent_request):
     if slot_values is None:

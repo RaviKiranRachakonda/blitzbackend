@@ -40,7 +40,7 @@ do
         --role $LAMBDA_ROLE_ARN \
         --handler ${module_name}.lambda_handler \
         --runtime python3.6 \
-	--environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" \
+#	--environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" \
         >/dev/null
 
     # echo "Adding permission to invoke Lambda handler function ${LAMBDA}_${i} from Amazon Lex"
