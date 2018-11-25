@@ -13,6 +13,13 @@
 # $ATHENA_DB_DESCRIPTION	Description for the Athena database
 #
 
+
+##### Short-circuit #######
+
+exit 0
+
+# Not used.
+
 echo "Starting build-db.sh"
 echo '$ATHENA_DB' "= $ATHENA_DB"
 echo '$ATHENA_BUCKET' "= $ATHENA_BUCKET"
