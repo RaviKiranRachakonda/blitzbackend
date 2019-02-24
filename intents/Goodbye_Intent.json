@@ -1,0 +1,24 @@
+{
+        "name": "Goodbye_Intent",
+        "description": "Say bye to Blitz Bot",
+        "conclusionStatement": {
+          "messages": [
+            {
+              "content": "via code hook",
+              "contentType": "PlainText"
+            }
+          ]
+        },
+        "fulfillmentActivity": {
+          "codeHook": {
+            "messageVersion": "1.0",
+            "uri": "{{lambda-arn}}"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "bye"
+        ],
+        "slots": [
+        ]
+}
