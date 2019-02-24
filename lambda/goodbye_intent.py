@@ -30,13 +30,7 @@ def lambda_handler(event, context):
 
     session_attributes = event['sessionAttributes']
     logger.debug('<<BIBot>> lambda_handler: session_attributes = ' + json.dumps(session_attributes))
-
-    config_error = helpers.get_bibot_config()
-    if config_error is not None:
-        return helpers.close(session_attributes, 'Fulfilled',
-            {'contentType': 'PlainText', 'content': config_error})   
-    else:
-        return goodbye_intent_handler(event, session_attributes)
+    return goodbye_intent_handler(event, session_attributes)
 
 
 def goodbye_intent_handler(intent_request, session_attributes):
