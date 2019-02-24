@@ -1,0 +1,9 @@
+{
+        "name": "search_category",
+        "description": "Search category",
+        "valueSelectionStrategy": "TOP_RESOLUTION", 
+        "enumerationValues": [
+           { "value": "Rockets" },
+           { "value": "Networking" }
+	 ]
+}

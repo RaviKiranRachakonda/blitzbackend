@@ -9,6 +9,10 @@
         {
             "intentVersion": "$LATEST", 
             "intentName": "Goodbye_Intent"
+        },
+        {
+            "intentVersion": "$LATEST", 
+            "intentName": "SelectCategory_Intent"
         } 
   ], 
   "locale": "en-US",
