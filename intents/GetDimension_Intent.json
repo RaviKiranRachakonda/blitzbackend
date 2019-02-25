@@ -1,0 +1,42 @@
+{
+        "name": "GetDimension_Intent",
+        "description": "Get Dimension",
+        "conclusionStatement": {
+          "messages": [
+            {
+              "content": "via code hook",
+              "contentType": "PlainText"
+            }
+          ]
+        },
+        "fulfillmentActivity": {
+          "codeHook": {
+            "messageVersion": "1.0",
+            "uri": "{{lambda-arn}}"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "What's its {SpecificDimensionSlot}",
+          "What's its dimension?"
+        ],
+        "slots": [
+            {
+                "slotType": "specific_dimension", 
+                "name": "SpecificDimensionSlot", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "Tell us the specific dimension", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 9, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": []
+            }
+        ]
+}

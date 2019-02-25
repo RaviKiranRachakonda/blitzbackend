@@ -13,7 +13,11 @@
         {
             "intentVersion": "$LATEST", 
             "intentName": "SelectCategory_Intent"
-        } 
+        },
+        {
+            "intentVersion": "$LATEST", 
+            "intentName": "GetDimension_Intent"
+        }
   ], 
   "locale": "en-US",
   "abortStatement": {

@@ -1,0 +1,10 @@
+{
+        "name": "specific_dimension",
+        "description": "Specific dimension",
+        "valueSelectionStrategy": "TOP_RESOLUTION", 
+        "enumerationValues": [
+           { "value": "Length" },
+           { "value": "Height" },
+           { "value": "Width" }
+	 ]
+}
