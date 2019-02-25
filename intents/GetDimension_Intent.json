@@ -18,7 +18,7 @@
         },
         "sampleUtterances": [
           "What's its {SpecificDimensionSlot}",
-          "What's its dimension?"
+          "What's its dimension."
         ],
         "slots": [
             {
