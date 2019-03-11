@@ -16,7 +16,7 @@ def zipdir(basedir, archivename):
  
 if __name__ == '__main__':
     import sys
-    basedir = sys.argv[1]
-    archivename = sys.argv[2]
+    archivename = sys.argv[1]
+    basedir = sys.argv[2]
     zipdir(basedir, archivename)
 

@@ -8,7 +8,8 @@ phases:
     commands:
       - echo Build started on `date`
       - cd lambda
-      - python ../zip.py ../Hello_Intent.zip hello_intent.py bibot_config.py bibot_helpers.py bibot_userexits.py
+      - python ../zipdir.py Contents.zip project-dir
+      - python ../zip.py ../Hello_Intent.zip Contents.zip hello_intent.py bibot_config.py bibot_helpers.py bibot_userexits.py
       - python ../zip.py ../Goodbye_Intent.zip goodbye_intent.py bibot_config.py bibot_helpers.py bibot_userexits.py
       - python ../zip.py ../SelectCategory_Intent.zip selectcategory_intent.py bibot_config.py bibot_helpers.py bibot_userexits.py
       - python ../zip.py ../GetDimension_Intent.zip getdimension_intent.py bibot_config.py bibot_helpers.py bibot_userexits.py
