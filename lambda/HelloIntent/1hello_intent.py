@@ -15,12 +15,95 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Gremlin imports.
+from __future__ import print_function  # Python 2/3 compatibility
+from project-dir.gremlin_python import statics
+from project-dir.gremlin_python.structure.graph import Graph
+from project-dir.gremlin_python.process.graph_traversal import __
+from project-dir.gremlin_python.process.strategies import *
+from project-dir.gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
+
+
 import logging
 import json
 import bibot_helpers as helpers
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
+
+
+# TODO:  Make this URL configurable.
+graphConnection = DriverRemoteConnection('ws://neptunedbcluster-cxu2i0c92g94.cluster-cryiyy1ygf5o.us-east-1.neptune.amazonaws.com:8182/gremlin','g')
+
+def get_slots(intent_request):
+    return intent_request['currentIntent']['slots']
+
+
+
+def elicit_slot(session_attributes, intent_name, slots, slot_to_elicit, message):
+    return {
+        'sessionAttributes': session_attributes,
+        'dialogAction': {
+            'type': 'ElicitSlot',
+            'intentName': intent_name,
+            'slots': slots,
+            'slotToElicit': slot_to_elicit,
+            'message': message
+        }
+    }
+
+
+def close(session_attributes, fulfillment_state, message):
+    response = {
+        'sessionAttributes': session_attributes,
+        'dialogAction': {
+            'type': 'Close',
+            'fulfillmentState': fulfillment_state,
+            'message': message
+        }
+    }
+
+    return response
+
+
+def delegate(session_attributes, slots):
+    return {
+        'sessionAttributes': session_attributes,
+        'dialogAction': {
+            'type': 'Delegate',
+            'slots': slots
+        }
+    }
+
+
+def category(intent_request):
+
+    categoryName = get_slots(intent_request)["CategorySlot"]
+    source = intent_request['invocationSource']
+    product_name = 'Cisco NCS 4201'
+    graph = Graph()
+    
+    g = graph.traversal().withRemote(graphConnection)
+
+    print(g.V().limit(2).toList())
+
+    output_session_attributes = intent_request['sessionAttributes'] if intent_request['sessionAttributes'] is not None else {}
+    output_session_attributes['Product'] = product_name
+    output_session_attributes['Category'] = categoryName
+    output_session_attributes['Type'] = 'SYSTEM_SPEC'
+
+    if source == 'DialogCodeHook':
+      return delegate(output_session_attributes, get_slots(intent_request))
+
+
+    # Selected Category, Return a dummy Cisco Product.
+    # This will need to hook up with Neptune.
+    return close(output_session_attributes,
+                 'Fulfilled',
+                 {'contentType': 'PlainText',
+                  'content': 'Proceeding with category = {}, product = {}'.format(categoryName, product_name)
+                 })
+
 
 
 def lambda_handler(event, context):
@@ -47,5 +130,7 @@ def hello_intent_handler(intent_request, session_attributes):
     elif askCount == 5: response_string = "Really?"
     else: response_string = 'Ok'
 
-    return helpers.close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+    return category(intent_request)
+
+    #return helpers.close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
