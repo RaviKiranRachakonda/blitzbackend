@@ -17,12 +17,11 @@
 
 # Gremlin imports.
 from __future__ import print_function  # Python 2/3 compatibility
-from project-dir.gremlin_python import statics
-from project-dir.gremlin_python.structure.graph import Graph
-from project-dir.gremlin_python.process.graph_traversal import __
-from project-dir.gremlin_python.process.strategies import *
-from project-dir.gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
-
+from projectdir.gremlin_python import statics
+from projectdir.gremlin_python.structure.graph import Graph
+from projectdir.gremlin_python.process.graph_traversal import __
+from projectdir.gremlin_python.process.strategies import *
+from projectdir.gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
 
 import logging
 import json
