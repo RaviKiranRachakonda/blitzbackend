@@ -12,8 +12,6 @@ def zipdir(basedir, archivename):
             for fn in files:
                 absfn = os.path.join(root, fn)
                 zfn = absfn[(len(basedir)+len(os.sep)-1):] #XXX: relative path
-                print('absolute filename is ', absfn)
-                print('zfn filename is ', zfn )   
                 z.write(absfn, zfn)
  
 if __name__ == '__main__':
